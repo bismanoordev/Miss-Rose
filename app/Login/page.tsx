@@ -40,29 +40,36 @@ export default function LoginPage() {
   });
 
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
-    setIsSubmitting(true);
-    try {
-      await signInWithEmailAndPassword(auth, data.email, data.password);
+  if (!auth) {
+    toast.error("Authentication service is unavailable.");
+    return;
+  }
 
-      toast.success("Login Successful");
+  setIsSubmitting(true);
 
-      setTimeout(() => {
-        router.push("/");
-      }, 500);
-    } catch (err) {
-      const error = err as FirebaseError;
+  try {
+    await signInWithEmailAndPassword(auth, data.email, data.password);
 
-      if (error.code === "auth/user-not-found") {
-        setError("email", { message: "User not found" });
-      } else if (error.code === "auth/wrong-password") {
-        setError("password", { message: "Wrong password" });
-      } else {
-        toast.error("Login failed");
-      }
-    } finally {
-      setIsSubmitting(false);
+    toast.success("Login Successful");
+
+    setTimeout(() => {
+      router.push("/");
+    }, 500);
+  } catch (err) {
+    const error = err as FirebaseError;
+
+    if (error.code === "auth/user-not-found") {
+      setError("email", { message: "User not found" });
+    } else if (error.code === "auth/wrong-password") {
+      setError("password", { message: "Wrong password" });
+    } else {
+      toast.error("Login failed");
     }
-  };
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
 
   return (
     <>
