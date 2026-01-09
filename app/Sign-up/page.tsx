@@ -48,6 +48,11 @@ export default function SignupPage() {
   });
 
   const onSubmit: SubmitHandler<SignupFormInputs> = async (data) => {
+    if (!auth) {
+      toast.error("Authentication service is unavailable.");
+      return;
+    }
+
     setIsSubmitting(true);
     try {
       const userCredential = await createUserWithEmailAndPassword(
