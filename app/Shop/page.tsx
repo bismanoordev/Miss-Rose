@@ -1,30 +1,29 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import AOS from "aos";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../lib/firebase"; // path apne project ke hisaab se check kar lena
+import { onAuthStateChanged, type User } from "firebase/auth";
+import { auth } from "../lib/firebase";
 
 const products = [
   { img: "card1.png", title: "Miss Rose Silk Flawless Foundation" },
   { img: "card2.png", title: "Miss Rose Full Coverage Concealer" },
   { img: "card3.png", title: "Miss Rose Perfect Cover 24H Hydrating Concealer" },
-  { img: "card4.png", title: "Miss Rose Full Coverage Matte Moundation." },
-  { img: "card5.png", title: "Miss Rose Silk Radiancs BB Cream" },
+  { img: "card4.png", title: "Miss Rose Full Coverage Matte Foundation" },
+  { img: "card5.png", title: "Miss Rose Silk Radiance BB Cream" },
   { img: "card6.png", title: "Miss Rose Glossy Gloss Lip Comfort" },
-  { img: "card7.png", title: "Miss Rose Cat Eye Mascara Perminent" },
+  { img: "card7.png", title: "Miss Rose Cat Eye Mascara Permanent" },
   { img: "card8.png", title: "Miss Rose Two Way Compact Powder" },
-  { img: "card1.png", title: "Miss Rose Two Way Compact Powder" },
-  { img: "card8.png", title: "Miss Rose Two Way Compact Powder" },
-  { img: "card5.png", title: "Miss Rose Two Way Compact Powder" },
-  { img: "card2.png", title: "Miss Rose Two Way Compact Powder" },
+  { img: "card3.png", title: "Miss Rose Perfect Cover 24H Hydrating Concealer" },
+  { img: "card4.png", title: "Miss Rose Full Coverage Matte Foundation" },
+  { img: "card5.png", title: "Miss Rose Silk Radiance BB Cream" },
+  { img: "card6.png", title: "Miss Rose Glossy Gloss Lip Comfort" },
 ];
 
 const Card = () => {
   const router = useRouter();
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     AOS.init({
@@ -32,6 +31,12 @@ const Card = () => {
       easing: "ease-out-cubic",
       once: false,
     });
+
+    // 🔐 Auth safe guard
+    if (!auth) {
+      setUser(null);
+      return () => {};
+    }
 
     const unsub = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -42,7 +47,7 @@ const Card = () => {
 
   const handleBuyNow = () => {
     if (!user) {
-      router.push("/Login"); // ya /Sign-up
+      router.push("/Login");
     } else {
       router.push("/Product-Form");
     }
@@ -66,8 +71,8 @@ const Card = () => {
             className="bg-neutral-primary-soft block max-w-2xs border border-default rounded-2xl shadow-xs transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02]"
           >
             <img
-              className="h-52 w-100 rounded-t-2xl"
-              src={item.img}
+              className="h-52 w-full rounded-t-2xl"
+              src={`/${item.img}`}
               alt={item.title}
             />
 

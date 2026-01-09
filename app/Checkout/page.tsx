@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect, useState, ChangeEvent, FormEvent } from "react";
+import { useRouter } from "next/navigation";
 import AOS from "aos";
 import toast from "react-hot-toast";
 import { db } from "../lib/firebase";
 import { collection, addDoc } from "firebase/firestore";
 
 export default function CheckoutPage() {
+  const router = useRouter(); // ✅ router for navigation
   const [formData, setFormData] = useState({
     email: "",
     firstName: "",
@@ -31,8 +33,13 @@ export default function CheckoutPage() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (!db) {
+      toast.error("Service unavailable. Please refresh the page.");
+      return;
+    }
+
     if (!formData.email || !formData.address || !formData.phone) {
-      toast.error("Please fill in all required fields ");
+      toast.error("Please fill in all required fields");
       return;
     }
 
@@ -42,8 +49,9 @@ export default function CheckoutPage() {
         createdAt: new Date().toISOString(),
       });
 
-      toast.success("Order placed successfully ");
+      toast.success("Order placed successfully");
 
+      // Reset form
       setFormData({
         email: "",
         firstName: "",
@@ -54,8 +62,13 @@ export default function CheckoutPage() {
         phone: "",
         country: "Pakistan",
       });
+
+      // ✅ Redirect to home page after success
+      router.push("/");
+
     } catch (error) {
-      toast.error("Error saving order. Please try again ");
+      console.error(error);
+      toast.error("Error saving order. Please try again");
     }
   };
 

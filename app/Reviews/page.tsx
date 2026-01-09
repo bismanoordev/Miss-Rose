@@ -1,18 +1,19 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation"; // ✅ router import
 import AOS from "aos";
 import "aos/dist/aos.css";
 
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../lib/firebase";
 
-import toast from "react-hot-toast"; 
+import toast from "react-hot-toast";
 
 export default function ReviewForm() {
+  const router = useRouter(); // ✅ router init
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
-
   const [review, setReview] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -26,8 +27,12 @@ export default function ReviewForm() {
     });
   }, []);
 
-  
   const handleSubmit = async () => {
+    if (!db) {
+      toast.error("Service unavailable. Please refresh the page.");
+      return;
+    }
+
     if (!rating || !review || !name) {
       toast.error("Please fill required fields");
       return;
@@ -45,18 +50,25 @@ export default function ReviewForm() {
         createdAt: serverTimestamp(),
       });
 
-      toast.success("Review submitted successfully ", {
+      toast.success("Review submitted successfully", {
         id: toastId,
       });
 
       // Reset form
       setRating(0);
+      setHover(0);
       setReview("");
       setName("");
       setEmail("");
+
+      // ✅ Redirect to home page after success
+      setTimeout(() => {
+        router.push("/");
+      }, 1500); // 1.5 seconds delay so user sees toast
+
     } catch (error) {
-      console.error("Error adding review: ", error);
-      toast.error("Something went wrong ", {
+      console.error("Error adding review:", error);
+      toast.error("Something went wrong", {
         id: toastId,
       });
     }
@@ -74,7 +86,7 @@ export default function ReviewForm() {
           Customer Review
         </h1>
 
-        
+        {/* Rating */}
         <div className="mb-6 text-center">
           <label className="block text-sm font-medium mb-2">
             Your Rating
@@ -103,7 +115,7 @@ export default function ReviewForm() {
           </div>
         </div>
 
-        
+        {/* Review */}
         <div className="mb-4">
           <label className="block text-sm font-medium mb-1">
             Your Review
@@ -116,7 +128,7 @@ export default function ReviewForm() {
           />
         </div>
 
-        
+        {/* Name */}
         <div className="mb-4">
           <label className="block text-sm font-medium mb-1">
             Your Name
@@ -129,7 +141,7 @@ export default function ReviewForm() {
           />
         </div>
 
-       
+        {/* Email */}
         <div className="mb-6">
           <label className="block text-sm font-medium mb-1">
             Your Email
@@ -145,11 +157,11 @@ export default function ReviewForm() {
           </p>
         </div>
 
-       
         <button
+          type="button"
           onClick={handleSubmit}
           disabled={loading}
-          className="w-full px-6 py-2 rounded bg-black hover:bg-gray-800 text-white transition"
+          className="w-full px-6 py-2 rounded bg-black hover:bg-gray-800 text-white transition disabled:opacity-60"
         >
           {loading ? "Submitting..." : "Submit"}
         </button>
