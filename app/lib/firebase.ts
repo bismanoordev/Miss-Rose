@@ -15,13 +15,15 @@ const firebaseConfig = {
 const hasValidConfig = Object.values(firebaseConfig).every((val) => val !== "");
 
 
-let app = null;
-if (typeof window !== "undefined" && hasValidConfig) {
+
+let app;
+if (hasValidConfig) {
   app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+} else {
+  app = undefined;
 }
 
-
-export const auth = app ? getAuth(app) : null;
-export const db = app ? getFirestore(app) : null;
+export const auth = app ? getAuth(app) : undefined;
+export const db = app ? getFirestore(app) : undefined;
 
 export default app;
