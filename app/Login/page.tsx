@@ -16,15 +16,22 @@ import { auth } from "../lib/firebase";
 interface LoginFormInputs {
   email: string;
   password: string;
+  role: "customer" | "admin";
 }
 
-const schema = yup.object({
-  email: yup
-    .string()
-    .email("Invalid email format")
-    .required("Email is required"),
-  password: yup.string().required("Password is required"),
-});
+const schema: yup.ObjectSchema<LoginFormInputs> = yup
+  .object({
+    email: yup
+      .string()
+      .email("Invalid email format")
+      .required("Email is required"),
+    password: yup.string().required("Password is required"),
+    role: yup
+      .mixed<LoginFormInputs["role"]>()
+      .oneOf(["customer", "admin"], "Role is required")
+      .required("Role is required"),
+  })
+  .required();
 
 export default function LoginPage() {
   const router = useRouter();
@@ -37,43 +44,49 @@ export default function LoginPage() {
     setError,
   } = useForm<LoginFormInputs>({
     resolver: yupResolver(schema),
+    defaultValues: {
+      role: "customer",
+    },
   });
 
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
-  if (!auth) {
-    toast.error("Authentication service is unavailable.");
-    return;
-  }
-
-  setIsSubmitting(true);
-
-  try {
-    await signInWithEmailAndPassword(auth, data.email, data.password);
-
-    toast.success("Login Successful");
-
-    setTimeout(() => {
-      router.push("/");
-    }, 500);
-  } catch (err) {
-    const error = err as FirebaseError;
-
-    if (error.code === "auth/user-not-found") {
-      setError("email", { message: "User not found" });
-    } else if (error.code === "auth/wrong-password") {
-      setError("password", { message: "Wrong password" });
-    } else {
-      toast.error("Login failed");
+    if (!auth) {
+      toast.error("Authentication service is unavailable.");
+      return;
     }
-  } finally {
-    setIsSubmitting(false);
-  }
-};
 
+    setIsSubmitting(true);
+
+    try {
+      await signInWithEmailAndPassword(auth, data.email, data.password);
+
+      toast.success("Login Successful");
+
+      setTimeout(() => {
+        if (data.role === "admin") {
+          router.push("/Dashboard");
+        } else {
+          router.push("/");
+        }
+      }, 500);
+
+    } catch (err) {
+      const error = err as FirebaseError;
+
+      if (error.code === "auth/user-not-found") {
+        setError("email", { message: "User not found" });
+      } else if (error.code === "auth/wrong-password") {
+        setError("password", { message: "Wrong password" });
+      } else {
+        toast.error("Login failed");
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <>
-      {/* ✅ TOASTER */}
       <Toaster position="top-right" />
 
       <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
@@ -83,6 +96,29 @@ export default function LoginPage() {
           </h1>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+
+            {/* Role Dropdown */}
+            <div>
+              <select
+                {...register("role")}
+                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2
+                ${
+                  errors.role
+                    ? "border-red-500 focus:ring-red-200"
+                    : "border-gray-300 focus:ring-blue-200"
+                }`}
+              >
+                <option value="customer">Customer</option>
+                <option value="admin">Admin</option>
+              </select>
+
+              {errors.role && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.role.message}
+                </p>
+              )}
+            </div>
+
             {/* Email */}
             <div>
               <input
@@ -90,11 +126,11 @@ export default function LoginPage() {
                 placeholder="Email"
                 {...register("email")}
                 className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 
-                  ${
-                    errors.email
-                      ? "border-red-500 focus:ring-red-200"
-                      : "border-gray-300 focus:ring-blue-200"
-                  }`}
+                ${
+                  errors.email
+                    ? "border-red-500 focus:ring-red-200"
+                    : "border-gray-300 focus:ring-blue-200"
+                }`}
               />
               {errors.email && (
                 <p className="text-red-500 text-sm mt-1">
@@ -110,11 +146,11 @@ export default function LoginPage() {
                 placeholder="Password"
                 {...register("password")}
                 className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2
-                  ${
-                    errors.password
-                      ? "border-red-500 focus:ring-red-200"
-                      : "border-gray-300 focus:ring-blue-200"
-                  }`}
+                ${
+                  errors.password
+                    ? "border-red-500 focus:ring-red-200"
+                    : "border-gray-300 focus:ring-blue-200"
+                }`}
               />
               {errors.password && (
                 <p className="text-red-500 text-sm mt-1">
@@ -127,7 +163,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-black hover:bg-gray-800 text-white font-semibold py-3 rounded-lg transition duration-300 disabled:opacity-60"
+              className="w-full bg-[#C67F90] text-white hover:bg-pink-600 font-semibold py-3 rounded-lg transition duration-300 disabled:opacity-60"
             >
               {isSubmitting ? "Logging in..." : "Login"}
             </button>
@@ -142,6 +178,7 @@ export default function LoginPage() {
                 Sign Up
               </Link>
             </p>
+
           </form>
         </div>
       </div>

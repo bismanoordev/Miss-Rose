@@ -154,6 +154,13 @@ export default function CheckoutPage() {
         >
           Complete order
         </button>
+
+        <button
+          onClick={() => router.push("/Shop")}
+          className="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition"
+        >
+          Cancel
+        </button>
       </form>
     </div>
   );

@@ -61,17 +61,15 @@ export default function ProductForm() {
           </div>
         </div>
 
-        {/* Add to cart */}
-        <button className="w-full border border-black py-3 font-medium hover:bg-gray-600 hover:text-white cursor-pointer">
-          ADD TO CART
-        </button>
-
-        {/* Buy now */}
         <button
           onClick={handleBuyNow}
-          className="w-full bg-black text-white py-3 font-medium hover:bg-gray-800 cursor-pointer"
+          className="w-full bg-black text-white py-3 font-medium hover:bg-gray-800 cursor-pointer rounded-lg"
         >
           Buy it now
+        </button>
+
+        <button onClick={() => router.push("/Shop")} className="w-full border bg-black py-3 font-medium text-white rounded-lg hover:bg-gray-800 hover:text-white cursor-pointer">
+           Cancel
         </button>
 
       </div>

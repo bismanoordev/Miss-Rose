@@ -7,18 +7,18 @@ import { onAuthStateChanged, type User } from "firebase/auth";
 import { auth } from "../lib/firebase";
 
 const products = [
-  { img: "card1.png", title: "Miss Rose Silk Flawless Foundation" },
-  { img: "card2.png", title: "Miss Rose Full Coverage Concealer" },
-  { img: "card3.png", title: "Miss Rose Perfect Cover 24H Hydrating Concealer" },
-  { img: "card4.png", title: "Miss Rose Full Coverage Matte Foundation" },
-  { img: "card5.png", title: "Miss Rose Silk Radiance BB Cream" },
-  { img: "card6.png", title: "Miss Rose Glossy Gloss Lip Comfort" },
-  { img: "card7.png", title: "Miss Rose Cat Eye Mascara Permanent" },
-  { img: "card8.png", title: "Miss Rose Two Way Compact Powder" },
-  { img: "card3.png", title: "Miss Rose Perfect Cover 24H Hydrating Concealer" },
-  { img: "card4.png", title: "Miss Rose Full Coverage Matte Foundation" },
-  { img: "card5.png", title: "Miss Rose Silk Radiance BB Cream" },
-  { img: "card6.png", title: "Miss Rose Glossy Gloss Lip Comfort" },
+  { id: "1", img: "card1.png", title: "Miss Rose Silk Flawless Foundation" },
+  { id: "2", img: "card2.png", title: "Miss Rose Full Coverage Concealer" },
+  { id: "3", img: "card3.png", title: "Miss Rose Perfect Cover 24H Hydrating Concealer" },
+  { id: "4", img: "card4.png", title: "Miss Rose Full Coverage Matte Foundation" },
+  { id: "5", img: "card5.png", title: "Miss Rose Silk Radiance BB Cream" },
+  { id: "6", img: "card6.png", title: "Miss Rose Glossy Gloss Lip Comfort" },
+  { id: "7", img: "card7.png", title: "Miss Rose Cat Eye Mascara Permanent" },
+  { id: "8", img: "card8.png", title: "Miss Rose Two Way Compact Powder" },
+  { id: "9", img: "card3.png", title: "Miss Rose Perfect Cover 24H Hydrating Concealer" },
+  { id: "10", img: "card4.png", title: "Miss Rose Full Coverage Matte Foundation" },
+  { id: "11", img: "card5.png", title: "Miss Rose Silk Radiance BB Cream" },
+  { id: "12", img: "card6.png", title: "Miss Rose Glossy Gloss Lip Comfort" },
 ];
 
 const Card = () => {
@@ -35,7 +35,7 @@ const Card = () => {
     // 🔐 Auth safe guard
     if (!auth) {
       setUser(null);
-      return () => {};
+      return () => { };
     }
 
     const unsub = onAuthStateChanged(auth, (currentUser) => {
@@ -45,13 +45,14 @@ const Card = () => {
     return () => unsub();
   }, []);
 
-  const handleBuyNow = () => {
+  const handleBuyNow = (productId: string) => {
     if (!user) {
       router.push("/Login");
     } else {
-      router.push("/Product-Form");
+      router.push(`/Product/${productId}`);
     }
   };
+
 
   return (
     <div>
@@ -82,7 +83,7 @@ const Card = () => {
               </h5>
 
               <button
-                onClick={handleBuyNow}
+                onClick={() => handleBuyNow(item.id)}
                 className="inline-flex items-center text-white bg-black hover:bg-gray-800 transition px-4 py-2.5 rounded-md text-sm font-medium"
               >
                 Buy now

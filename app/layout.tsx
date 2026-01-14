@@ -19,18 +19,18 @@ const geistMono = Geist_Mono({
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Navbar />
         {children}
-         <Toaster position="top-right" reverseOrder={false} />
-         <Footer/>
+        <Toaster position="top-right" reverseOrder={false} />
+        <Footer />
       </body>
     </html>
   );

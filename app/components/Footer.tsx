@@ -64,7 +64,7 @@ export default function Footer() {
             <li><Link href="/">Track Your Order</Link></li>
             <li><Link href="/about">About Us</Link></li>
             <li>
-              <Link href="/Contact-us" className="underline text-blue-500">
+              <Link href="/Contact-us" >
                 Contact Us
               </Link>
             </li>
@@ -107,8 +107,8 @@ export default function Footer() {
       </div>
 
       {/* Social Icons */}
-      <div className="py-6">
-        <div className="max-w-7xl mx-auto flex justify-center md:justify-start bg-[#F9FAFB] gap-6 text-lg text-black">
+      <div className="py-6 ">
+        <div className="max-w-7xl mx-auto flex items-center justify-center md:justify-center bg-[#F9FAFB] gap-6 text-lg text-black">
           <FaFacebookF />
           <FaInstagram />
           <FaYoutube />
