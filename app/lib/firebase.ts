@@ -12,6 +12,16 @@ const firebaseConfig = {
 };
 
 
+
+// DEBUG: Log config and check if env vars are loaded
+if (typeof window !== 'undefined') {
+  // Only log on client to avoid leaking secrets on server logs
+  // (apiKey is public for Firebase web apps)
+  // Remove this after debugging!
+  // eslint-disable-next-line no-console
+  console.log("FIREBASE CONFIG:", firebaseConfig);
+}
+
 const hasValidConfig = Object.values(firebaseConfig).every((val) => val !== "");
 
 
