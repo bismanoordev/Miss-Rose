@@ -28,7 +28,7 @@ export default function ProductDetail() {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-6">
+        <div className="min-h-screen font flex items-center justify-center p-6">
             <div className="max-w-lg bg-white rounded-xl shadow-lg p-6">
                 <img
                     src={`/${product.img}`}

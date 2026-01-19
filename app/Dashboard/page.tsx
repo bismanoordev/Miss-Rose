@@ -373,7 +373,7 @@ export default function Dashboard() {
     // PRODUCTS PAGE COMPONENT - FULLY RESPONSIVE
     const renderProductsPage = () => {
         return (
-            <div className="space-y-6">
+            <div className="space-y-6 font-serif">
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                     <div>
                         <h2 className="text-2xl font-bold">Products Management</h2>
@@ -402,7 +402,7 @@ export default function Dashboard() {
                 </div>
 
                 {/* Stats bar - Responsive */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+                <div className="grid grid-cols-2 sm:grid-cols-4 font-serif gap-3 sm:gap-4">
                     <div className="bg-white p-3 sm:p-4 rounded-lg shadow-sm border border-gray-200">
                         <p className="text-xs sm:text-sm text-gray-500">Total Products</p>
                         <p className="text-xl sm:text-2xl font-bold">{products.length}</p>
@@ -422,7 +422,7 @@ export default function Dashboard() {
                 </div>
 
                 {/* Search bar */}
-                <div className="relative">
+                <div className="relative font-serif">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
                     <input
                         type="text"
@@ -435,7 +435,7 @@ export default function Dashboard() {
 
                 {/* Products table - Mobile responsive with cards */}
                 {loading ? (
-                    <div className="text-center py-12">
+                    <div className="text-center py-12 font-serif">
                         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto"></div>
                     </div>
                 ) : filteredProducts.length === 0 ? (
@@ -452,7 +452,7 @@ export default function Dashboard() {
                 ) : (
                     <>
                         {/* Desktop Table View */}
-                        <div className="hidden md:block bg-white rounded-lg shadow-sm border border-gray-200 overflow-x-auto">
+                        <div className="hidden font-serif md:block bg-white rounded-lg shadow-sm border border-gray-200 overflow-x-auto">
                             <div className="min-w-[600px]">
                                 <table className="w-full">
                                     <thead className="bg-gray-50">
@@ -538,7 +538,7 @@ export default function Dashboard() {
                         </div>
 
                         {/* Mobile View - Updated for better responsiveness */}
-                        <div className="md:hidden">
+                        <div className="md:hidden font-serif">
                             {mobileView === "cards" ? (
                                 // Card Layout for Mobile
                                 <div className="space-y-4">
@@ -622,7 +622,7 @@ export default function Dashboard() {
                                 </div>
                             ) : (
                                 // Mobile Table View with Horizontal Scroll
-                                <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+                                <div className="bg-white font-serif rounded-lg shadow-sm border border-gray-200 overflow-hidden">
                                     <div className="overflow-x-auto">
                                         <div className="inline-block min-w-full align-middle">
                                             <div className="overflow-hidden">
@@ -735,7 +735,7 @@ export default function Dashboard() {
     // CUSTOMERS PAGE COMPONENT (Customer Orders) - FULLY RESPONSIVE
     const renderCustomersPage = () => {
         return (
-            <div className="space-y-6">
+            <div className="space-y-6 font-serif">
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                     <div>
                         <h2 className="text-2xl font-bold">Customer Orders</h2>
@@ -929,7 +929,7 @@ export default function Dashboard() {
                                                             </th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody className="bg-white divide-y divide-gray-200">
+                                                    <tbody className="bg-white dividey divide-gray-200">
                                                         {validCustomerOrders.map((order) => {
                                                             const shortOrderId = order.id ? `#${order.id.substring(0, 6)}...` : '#N/A';
                                                             return (
@@ -998,10 +998,10 @@ export default function Dashboard() {
             default:
                 return (
                     <>
-                        <h1 className="text-2xl sm:text-3xl font-bold mb-6">Mara Dashboard Overview</h1>
+                        <h1 className="text-2xl sm:text-3xl font-bold mb-6 font-serif"> Dashboard Overview</h1>
 
                         {/* Stats */}
-                        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-8">
+                        <div className="grid grid-cols-2 sm:grid-cols-2 font-serif lg:grid-cols-4 gap-3 sm:gap-6 mb-8">
                             <div className="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
                                 <div className="p-4 sm:p-5 flex items-center justify-between">
                                     <div>
@@ -1045,7 +1045,7 @@ export default function Dashboard() {
                                 </div>
                             </div>
 
-                            <div className="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
+                            <div className="bg-white font-serif rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
                                 <div className="p-4 sm:p-5 flex items-center justify-between">
                                     <div>
                                         <p className="text-xs sm:text-sm text-gray-500">Customers</p>
@@ -1060,7 +1060,7 @@ export default function Dashboard() {
                         </div>
 
                         {/* Recent Orders Only - Full Width */}
-                        <div className="grid grid-cols-1 gap-6 sm:gap-8 mb-8">
+                        <div className="grid grid-cols-1 font-serif gap-6 sm:gap-8 mb-8">
                             {/* Recent Orders */}
                             <div className="bg-white rounded-lg shadow-sm border border-gray-200">
                                 <div className="p-4 sm:p-6 border-b">
@@ -1147,7 +1147,7 @@ export default function Dashboard() {
                         </div>
 
                         {/* Quick Actions - Responsive */}
-                        <div className="mt-8">
+                        <div className="mt-8 font-serif">
                             <h2 className="text-lg sm:text-xl font-semibold mb-4">Quick Actions</h2>
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                                 <button
@@ -1182,11 +1182,11 @@ export default function Dashboard() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 flex">
+        <div className="min-h-screen font-serif bg-gray-50 flex">
             <Toaster position="top-right" />
             
-            {/* Sidebar */}
-            <aside className="w-64 bg-gradient-to-r from-[#C67F90] to-pink-400 text-white p-6 hidden md:block sticky top-0 h-screen">
+            {/* Sidebar - Fixed width and position */}
+            <aside className="w-64 bg-gradient-to-r from-[#C67F90] to-pink-400 text-white p-6 hidden md:block fixed top-0 left-0 h-screen z-40">
                 <div className="mb-8">
                     <h2 className="text-2xl font-bold">Mara Admin</h2>
                     <p className="text-sm text-white/80 mt-1">Admin Dashboard</p>
@@ -1219,8 +1219,8 @@ export default function Dashboard() {
                 </nav>
             </aside>
 
-            {/* Main Content */}
-            <main className="flex-1 p-3 sm:p-4 md:p-6">
+            {/* Main Content - Adjusted for fixed sidebar */}
+            <main className="flex-1 p-3 sm:p-4 md:p-6 md:ml-64">
                 {/* Mobile Header */}
                 <div className="md:hidden mb-6">
                     <div className="flex items-center justify-between mb-4">

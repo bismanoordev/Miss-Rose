@@ -13,7 +13,7 @@ import {
 
 export default function Footer() {
   return (
-    <footer className="bg-[#F9FAFB] border-t border-gray-400">
+    <footer className="bg-[#F9FAFB] border-t border-gray-400 font-serif">
       <div className="max-w-7xl mx-auto px-6 py-12 space-y-10 md:space-y-0 md:grid md:grid-cols-4 md:gap-10">
 
         {/* Brand & Contact */}
@@ -28,7 +28,7 @@ export default function Footer() {
           <p>
             Reach us at:
             <br />
-            <span className="font-medium underline text-blue-500">
+            <span className="font-medium underline text-[#C67F90]">
               missrose.com.pk@gmail.com
             </span>
           </p>
@@ -36,7 +36,7 @@ export default function Footer() {
           <p>
             For Queries Call/Whatsapp at:
             <br />
-            <span className="font-medium underline text-blue-500">
+            <span className="font-medium underline text-[#C67F90]">
               0333-0529002
             </span>
             <br />
@@ -46,7 +46,7 @@ export default function Footer() {
           <p>
             Automated Customer Chat:
             <br />
-            <span className="font-medium underline text-blue-500">
+            <span className="font-medium underline text-[#C67F90]">
               +923100003721
             </span>
             <br />
@@ -87,10 +87,10 @@ export default function Footer() {
 
         {/* Reviews & Badges */}
         <div className="text-center md:text-left">
-          <h3 className="font-semibold mb-4">Customer Reviews</h3>
+          <h3 className="font-semibold mb-4 text-[#CA7E93]">Customer Reviews</h3>
 
           {/* Stars */}
-          <div className="flex justify-center md:justify-start items-center gap-2 text-green-600 mb-4">
+          <div className="flex justify-center md:justify-start items-center gap-2 text-[#CA7E93] mb-4">
             {[...Array(5)].map((_, i) => (
               <FaStar key={i} />
             ))}
@@ -98,7 +98,7 @@ export default function Footer() {
           </div>
 
           {/* Badges */}
-          <div className="flex justify-center md:justify-start gap-4 overflow-x-auto py-2">
+          <div className="flex justify-center md:justify-start gap-4 py-2">
             <img src="/badges/brand-trust.png" alt="Brand Trust" className="h-16 md:h-20" />
             <img src="/badges/top-1.png" alt="Top 1% Trending" className="h-16 md:h-20" />
             <img src="/badges/verified-14k.png" alt="14.8k Verified Reviews" className="h-16 md:h-20" />

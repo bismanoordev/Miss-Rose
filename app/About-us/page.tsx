@@ -1,37 +1,27 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect } from "react";
-import AOS from "aos";
 
 export default function AboutUs() {
 
-    useEffect(() => {
-        AOS.init({
-            duration: 900,
-            easing: "ease-out-cubic",
-            once: true,
-        });
-    }, []);
-
     return (
-        <section className="w-full bg-[#F9FAFB]">
+        <section className="w-full bg-[#F9FAFB] py-20 font-serif">
             {/* Header */}
             <div
-                data-aos="fade-down"
-                className="pt-10 text-center"
+                
+                className=" pb-9 text-center"
             >
-                <h1 className="text-4xl font-bold text-black">About us</h1>
+                <h1 className="text-4xl font-serif font-bold text-black">About us</h1>
             </div>
 
             {/* Content */}
             <div className="max-w-6xl mx-auto px-4 py-10">
                 {/* Image */}
                 <div
-                    data-aos="zoom-in"
+                   
                     className="flex justify-center"
                 >
-                    <div className="relative w-full max-w-4xl h-72 md:h-96 rounded-xl overflow-hidden shadow-lg">
+                    <div className="relative w-full max-w-4xl mb-6  h-72 md:h-96 rounded-xl overflow-hidden shadow-lg">
                         <Image
                             src="/about1.png"
                             alt="Our team"
@@ -42,12 +32,12 @@ export default function AboutUs() {
                 </div>
 
                 {/* Text */}
-                <div className="mt-10 space-y-6 text-gray-700 text-lg leading-relaxed text-center">
-                    <p data-aos="fade-up" data-aos-delay="100">
+                <div className="mt-10 space-y-8 text-gray-700 text-lg leading-relaxed text-center">
+                    <p>
                         At Missrose.com.pk, we take pride in being the official and most trusted Miss Rose website in Pakistan. For years, we have served customers across the country with 100% genuine, authentic Miss Rose products, complete transparency, and an unmatched shopping experience.
                     </p>
 
-                    <p data-aos="fade-up" data-aos-delay="200">
+                    <p>
                         Your trust means everything to us.
                         As the brand has grown, several websites have appeared with similar names, which sometimes creates confusion for customers. We want to assure you that Missrose.com.pk is the official and authentic Miss Rose platform in Pakistan.
 

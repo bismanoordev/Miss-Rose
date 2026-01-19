@@ -2,7 +2,6 @@
 
 import { useEffect, useState, ChangeEvent, FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import AOS from "aos";
 import toast from "react-hot-toast";
 import { db } from "../lib/firebase";
 import { collection, addDoc } from "firebase/firestore";
@@ -20,9 +19,7 @@ export default function CheckoutPage() {
     country: "Pakistan",
   });
 
-  useEffect(() => {
-    AOS.init({ duration: 800, once: false });
-  }, []);
+  
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -73,7 +70,7 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 my-10" data-aos="fade-up">
+    <div className="max-w-2xl font-serif mx-auto p-6 my-20">
       <h1 className="text-4xl font-semibold mb-4 text-center">Delivery</h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">

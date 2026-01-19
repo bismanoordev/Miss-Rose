@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import AOS from "aos";
+
 import { onAuthStateChanged, type User } from "firebase/auth";
 import { auth } from "../lib/firebase";
 
@@ -26,30 +26,25 @@ const Card = () => {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    AOS.init({
-      duration: 800,
-      easing: "ease-out-cubic",
-      once: false,
-    });
+  if (!auth) {
+    setUser(null);
+    return;
+  }
 
-    // 🔐 Auth safe guard
-    if (!auth) {
-      setUser(null);
-      return () => { };
-    }
+  const unsub = onAuthStateChanged(auth, (currentUser) => {
+    setUser(currentUser);
+  });
 
-    const unsub = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
+  return () => unsub();
+}, []);
 
-    return () => unsub();
-  }, []);
 
   const handleBuyNow = (productId: string) => {
     if (!user) {
       router.push("/Login");
     } else {
-      router.push(`/Product/${productId}`);
+      // Change this line only - navigate to Product-Form instead of Product detail
+      router.push(`/Product-Form?productId=${productId}`);
     }
   };
 
@@ -57,19 +52,16 @@ const Card = () => {
   return (
     <div>
       <h1
-        data-aos="fade-down"
         className="text-black mt-9 text-5xl text-center leading-relaxed font-serif"
       >
         SHOP ALL
       </h1>
 
-      <div className="p-9 pb-20 flex gap-5 flex-wrap justify-center">
+      <div className="p-9 pb-20 flex gap-5 font-serif flex-wrap justify-center">
         {products.map((item, index) => (
           <div
             key={index}
-            data-aos="fade-up"
-            data-aos-delay={index * 80}
-            className="bg-neutral-primary-soft block max-w-2xs border border-default rounded-2xl shadow-xs transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02]"
+            className="bg-neutral-primary-soft block max-w-2xs border border-gray-300 rounded-2xl shadow-xs transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02]"
           >
             <img
               className="h-52 w-full rounded-t-2xl"
@@ -77,14 +69,14 @@ const Card = () => {
               alt={item.title}
             />
 
-            <div className="p-3 text-center bg-[#F3F3F3] rounded-2xl">
-              <h5 className="mt-3 mb-3 text-lg font-semibold">
+            <div className="p-3 text-center text-black rounded-b-2xl">
+              <h5 className="mt-3 mb-3  text-lg font-semibold">
                 {item.title}
               </h5>
 
               <button
                 onClick={() => handleBuyNow(item.id)}
-                className="inline-flex items-center text-white bg-black hover:bg-gray-800 transition px-4 py-2.5 rounded-md text-sm font-medium"
+                className="inline-flex items-center text-white bg-[#C67F90] hover:bg-[#b36a7a] transition px-4 py-2.5 rounded-md text-sm font-medium"
               >
                 Buy now
                 <svg

@@ -59,53 +59,55 @@ export default function SignupPage() {
   });
 
   const onSubmit: SubmitHandler<SignupFormInputs> = async (data) => {
-  if (!auth || !db) {
-    toast.error("Authentication service is unavailable.");
-    return;
-  }
-
-  setIsSubmitting(true);
-
-  try {
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      data.email,
-      data.password
-    );
-
-    const user = userCredential.user;
-
-    
-    await setDoc(doc(db, "users", user.uid), {
-      email: user.email,
-      role: data.role, // customer | admin
-      createdAt: serverTimestamp(),
-    });
-
-    toast.success("Account created successfully");
-
-    setTimeout(() => {
-      if (data.role === "admin") {
-        router.push("/Dashboard");
-      } else {
-        router.push("/");
-      }
-    }, 500);
-
-  } catch (err) {
-    const error = err as FirebaseError;
-
-    if (error.code === "auth/email-already-in-use") {
-      setError("email", { message: "Email already in use" });
-    } else if (error.code === "auth/weak-password") {
-      setError("password", { message: "Weak password" });
-    } else {
-      toast.error(error.message || "Signup failed");
+    if (!auth || !db) {
+      toast.error("Authentication service is unavailable.");
+      return;
     }
-  } finally {
-    setIsSubmitting(false);
-  }
-};
+
+    setIsSubmitting(true);
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password,
+      );
+
+      console.log("bisma userCredential", userCredential);
+
+      const user = userCredential.user;
+
+
+      await setDoc(doc(db, "users", user.uid), {
+        email: user.email,
+        role: data.role, 
+        createdAt: serverTimestamp(),
+      });
+
+      toast.success("Account created successfully");
+
+      setTimeout(() => {
+        if (data.role === "admin") {
+          router.push("/Dashboard");
+        } else {
+          router.push("/");
+        }
+      }, 500);
+
+    } catch (err) {
+      const error = err as FirebaseError;
+
+      if (error.code === "auth/email-already-in-use") {
+        setError("email", { message: "Email already in use" });
+      } else if (error.code === "auth/weak-password") {
+        setError("password", { message: "Weak password" });
+      } else {
+        toast.error(error.message || "Signup failed");
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
 
   return (
@@ -125,11 +127,10 @@ export default function SignupPage() {
               <select
                 {...register("role")}
                 className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2
-                ${
-                  errors.role
+                ${errors.role
                     ? "border-red-500 focus:ring-red-200"
                     : "border-gray-300 focus:ring-blue-200"
-                }`}
+                  }`}
               >
                 <option value="customer">Customer</option>
                 <option value="admin">Admin</option>
@@ -148,13 +149,15 @@ export default function SignupPage() {
                 type="email"
                 placeholder="Email"
                 {...register("email")}
-                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 
-                ${
-                  errors.email
+                className={`w-full px-4 py-3 border rounded-lg 
+                    placeholder-[#CA7E93]
+                focus:outline-none focus:ring-2 
+                     ${errors.email
                     ? "border-red-500 focus:ring-red-200"
                     : "border-gray-300 focus:ring-blue-200"
-                }`}
+                  }`}
               />
+
               {errors.email && (
                 <p className="text-red-500 text-sm mt-1">
                   {errors.email.message}
@@ -168,12 +171,11 @@ export default function SignupPage() {
                 type="password"
                 placeholder="Password"
                 {...register("password")}
-                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 
-                ${
-                  errors.password
+                className={`w-full px-4 py-3 border rounded-lg placeholder-[#CA7E93] focus:outline-none focus:ring-2 
+                ${errors.password
                     ? "border-red-500 focus:ring-red-200"
                     : "border-gray-300 focus:ring-blue-200"
-                }`}
+                  }`}
               />
               {errors.password && (
                 <p className="text-red-500 text-sm mt-1">
@@ -188,12 +190,11 @@ export default function SignupPage() {
                 type="password"
                 placeholder="Confirm Password"
                 {...register("confirmPassword")}
-                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 
-                ${
-                  errors.confirmPassword
+                className={`w-full px-4 py-3 border rounded-lg placeholder-[#CA7E93] focus:outline-none focus:ring-2 
+                ${errors.confirmPassword
                     ? "border-red-500 focus:ring-red-200"
                     : "border-gray-300 focus:ring-blue-200"
-                }`}
+                  }`}
               />
               {errors.confirmPassword && (
                 <p className="text-red-500 text-sm mt-1">
@@ -214,7 +215,7 @@ export default function SignupPage() {
             {/* Login */}
             <p className="text-center text-sm text-gray-600">
               Already have an account?{" "}
-              <Link href="/Login" className="text-blue-600 hover:underline font-medium">
+              <Link href="/Login" className="text-[#CA7E93] hover:underline font-medium">
                 Login
               </Link>
             </p>

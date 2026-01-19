@@ -108,7 +108,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-6 sm:py-12">
+    <div className="min-h-screen font-serif bg-gray-50 py-6 sm:py-12">
       <div className="max-w-3xl mx-auto px-4">
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
           
@@ -127,7 +127,7 @@ export default function ProfilePage() {
                   )}
                 </div>
 
-                <button className="absolute bottom-1 right-1 bg-white text-[#C67F90] p-2 rounded-full">
+                <button className="absolute bottom-1 cursor-pointer right-1 bg-white text-[#C67F90] p-2 rounded-full">
                   <FiCamera />
                 </button>
               </div>

@@ -23,6 +23,7 @@ export default function Navbar() {
     }
 
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      console.log("bisma user", currentUser);
       setUser(currentUser);
       setLoading(false);
     });
@@ -81,14 +82,14 @@ export default function Navbar() {
   };
 
   return (
-    <header className="w-full bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50">
+    <header className="w-full bg-white border-b border-gray-200 shadow-sm sticky font-serif top-0 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3 sm:px-6">
         {/* Logo */}
-        <Link href="/" className="flex flex-col leading-none">
-          <span className="text-lg sm:text-xl font-serif font-semibold tracking-wide text-gray-900">
+        <Link href="/" className="flex flex-col leading-none text-[#C67F90]">
+          <span className="text-lg sm:text-xl font-serif font-semibold tracking-wide text-[#cc768a]">
             MISS RÔSE
           </span>
-          <span className="text-[10px] sm:text-xs tracking-widest text-gray-500">
+          <span className="text-[10px] sm:text-xs tracking-widest text-[#CC7288]">
             MISSROSE.COM.PK
           </span>
         </Link>
@@ -97,7 +98,7 @@ export default function Navbar() {
         <nav className="hidden md:flex gap-6 lg:gap-8 text-sm font-medium tracking-wide">
           <Link
             href="/"
-            className="text-gray-700 hover:text-[#C67F90] transition-colors duration-200"
+            className="text-[#CC7288] hover:text-[#E88FA3] transition-colors duration-200"
           >
             HOME
           </Link>
@@ -106,19 +107,19 @@ export default function Navbar() {
             <>
               <Link
                 href="/Sale"
-                className="text-gray-700 hover:text-[#C67F90] transition-colors duration-200"
+                className="text-[#CC7288] hover:text-[#E88FA3] transition-colors duration-200"
               >
                 SALE
               </Link>
               <Link
                 href="/Reviews"
-                className="text-gray-700 hover:text-[#C67F90] transition-colors duration-200"
+                className="text-[#CC7288] hover:text-[#E88FA3] transition-colors duration-200"
               >
                 REVIEWS
               </Link>
               <Link
                 href="/About-us"
-                className="text-gray-700 hover:text-[#C67F90] transition-colors duration-200"
+                className="text-[#CC7288] hover:text-[#E88FA3] transition-colors duration-200"
               >
                 ABOUT US
               </Link>
@@ -126,7 +127,7 @@ export default function Navbar() {
               {/* New Product Link - Only for logged-in users */}
               <Link
                 href="/New-Products"
-                className="flex items-center gap-1 text-gray-700 hover:text-[#C67F90] transition-colors duration-200"
+                className="flex items-center gap-1 text-[#CC7288] hover:text-[#E88FA3] transition-colors duration-200"
               >
                 <FiPlus size={14} />
                 NEW PRODUCT
@@ -135,7 +136,7 @@ export default function Navbar() {
               {/* Shop Link - For all users */}
               <Link
                 href="/Shop"
-                className="flex items-center gap-1 text-gray-700 hover:text-[#C67F90] transition-colors duration-200"
+                className="flex items-center gap-1 text-[#CC7288] hover:text-[#E88FA3] transition-colors duration-200"
               >
                 <FiShoppingBag size={14} />
                 SHOP
@@ -179,11 +180,11 @@ export default function Navbar() {
                     />
                   ) : (
                     <div className="w-full h-full bg-linear-to-br from-gray-100 to-gray-300 flex items-center justify-center">
-                      <FiUser className="text-gray-600 text-base" />
+                      <FiUser className="text-[#CC7288] text-base" />
                     </div>
                   )}
                 </div>
-                <span className="text-sm font-medium text-gray-700 hidden lg:block">
+                <span className="text-sm font-medium text-[#CC7288] hidden lg:block">
                   {user.displayName?.split(' ')[0] || "Profile"}
                 </span>
               </button>
@@ -192,10 +193,10 @@ export default function Navbar() {
               {profileDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50 animate-fadeIn">
                   <div className="px-4 py-3 border-b border-gray-100">
-                    <p className="text-sm font-semibold text-gray-900">
+                    <p className="text-sm font-semibold text-[#CC7288]">
                       {user.displayName || "User"}
                     </p>
-                    <p className="text-xs text-gray-500 truncate mt-0.5">
+                    <p className="text-xs text-[#CC7288] truncate mt-0.5">
                       {user.email}
                     </p>
                   </div>
@@ -203,13 +204,13 @@ export default function Navbar() {
                   <div className="py-1">
                     <button
                       onClick={handleProfileNavigation}
-                      className="w-full flex items-center justify-between px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150 group"
+                      className="w-full flex items-center justify-between px-4 py-2.5 text-sm text-[#CC7288] hover:text-[#E88FA3] transition-colors duration-150 group"
                     >
                       <div className="flex items-center gap-3">
-                        <FiUser className="text-gray-400 group-hover:text-[#C67F90]" />
+                        <FiUser className="text-[#CC7288] group-hover:text-[#E88FA3]" />
                         <span>My Profile</span>
                       </div>
-                      <FiChevronRight className="text-gray-300 group-hover:text-[#C67F90]" />
+                      <FiChevronRight className="text-[#CC7288] group-hover:text-[#E88FA3]" />
                     </button>
 
 
@@ -235,7 +236,7 @@ export default function Navbar() {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden p-2 text-gray-700 hover:text-[#C67F90] transition-colors duration-200"
+          className="md:hidden p-2 text-[#CC7288] group-hover:text-[#E88FA3] transition-colors duration-200"
           aria-label={menuOpen ? "Close menu" : "Open menu"}
         >
           {menuOpen ? <FiX className="text-2xl" /> : <FiMenu className="text-2xl" />}
@@ -282,10 +283,10 @@ export default function Navbar() {
                   </div>
                   <button
                     onClick={() => setMenuOpen(false)}
-                    className="p-2 text-gray-500 hover:text-gray-700"
+                    className="p-2 text-[#CC7288] group-hover:text-[#E88FA3]"
                     aria-label="Close menu"
                   >
-                    <FiX className="text-xl" />
+                    <FiX className="text-xl " />
                   </button>
                 </div>
               </div>
@@ -333,8 +334,8 @@ export default function Navbar() {
                     onClick={() => setMenuOpen(false)}
                     className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-colors duration-150 group"
                   >
-                    <FiHome className="text-gray-400 group-hover:text-[#C67F90]" />
-                    <span className="font-medium">HOME</span>
+                    <FiHome className="text-[#CC7288] group-hover:text-[#C67F90]" />
+                    <span className="font-medium text-[#CC7288] group-hover:text-[#E88FA3]">HOME</span>
                   </Link>
 
                   {user && (
@@ -344,8 +345,8 @@ export default function Navbar() {
                         onClick={() => setMenuOpen(false)}
                         className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-colors duration-150 group"
                       >
-                        <FiTag className="text-gray-400 group-hover:text-[#C67F90]" />
-                        <span className="font-medium">SALE</span>
+                        <FiTag className="text-[#CC7288] group-hover:text-[#C67F90]" />
+                        <span className="font-medium text-[#CC7288] group-hover:text-[#C67F90]">SALE</span>
                       </Link>
 
                       <Link
@@ -353,8 +354,8 @@ export default function Navbar() {
                         onClick={() => setMenuOpen(false)}
                         className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-colors duration-150 group"
                       >
-                        <FiStar className="text-gray-400 group-hover:text-[#C67F90]" />
-                        <span className="font-medium">REVIEWS</span>
+                        <FiStar className="text-[#CC7288] group-hover:text-[#E88FA3]" />
+                        <span className="font-medium text-[#CC7288] group-hover:text-[#E88FA3]">REVIEWS</span>
                       </Link>
 
                       <Link
@@ -362,8 +363,8 @@ export default function Navbar() {
                         onClick={() => setMenuOpen(false)}
                         className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-colors duration-150 group"
                       >
-                        <FiInfo className="text-gray-400 group-hover:text-[#C67F90]" />
-                        <span className="font-medium">ABOUT US</span>
+                        <FiInfo className="text-[#CC7288] group-hover:text-[#E88FA3]" />
+                        <span className="font-medium text-[#CC7288] group-hover:text-[#E88FA3]">ABOUT US</span>
                       </Link>
 
                       {/* New Product Link in Mobile Menu */}
@@ -372,8 +373,8 @@ export default function Navbar() {
                         onClick={() => setMenuOpen(false)}
                         className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-colors duration-150 group"
                       >
-                        <FiPlus className="text-gray-400 group-hover:text-[#C67F90]" />
-                        <span className="font-medium">NEW PRODUCT</span>
+                        <FiPlus className="text-[#CC7288] group-hover:text-[#E88FA3]" />
+                        <span className="font-medium text-[#CC7288] group-hover:text-[#E88FA3]">NEW PRODUCT</span>
                       </Link>
 
                       {/* Shop Link in Mobile Menu */}
@@ -382,8 +383,8 @@ export default function Navbar() {
                         onClick={() => setMenuOpen(false)}
                         className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-colors duration-150 group"
                       >
-                        <FiShoppingBag className="text-gray-400 group-hover:text-[#C67F90]" />
-                        <span className="font-medium">SHOP</span>
+                        <FiShoppingBag className="text-[#CC7288] group-hover:text-[#E88FA3]" />
+                        <span className="font-medium text-[#CC7288] group-hover:text-[#E88FA3]">SHOP</span>
                       </Link>
                     </>
                   )}
@@ -402,8 +403,8 @@ export default function Navbar() {
                         onClick={handleProfileNavigation}
                         className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-colors duration-150 group text-left"
                       >
-                        <FiUser className="text-gray-400 group-hover:text-[#C67F90]" />
-                        <span className="font-medium">My Profile</span>
+                        <FiUser className="text-[#CC7288] group-hover:text-[#E88FA3]" />
+                        <span className="font-medium text-[#CC7288] group-hover:text-[#E88FA3]">My Profile</span>
                       </button>
 
                     

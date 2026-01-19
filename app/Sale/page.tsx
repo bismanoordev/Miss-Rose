@@ -1,48 +1,34 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect } from "react";
-import AOS from "aos";
 
 const products = [
-  { img: "card1.png", title: "Miss Rose Silk Flawless Foundation" },
-  { img: "card2.png", title: "Miss Rose Full Coverage Concealer" },
-  { img: "card3.png", title: "Miss Rose Perfect Cover 24H Hydrating Concealer" },
-  { img: "card4.png", title: "Miss Rose Full Coverage Matte Moundation." },
-  { img: "card5.png", title: "Miss Rose Silk Radiancs BB Cream" },
-  { img: "card6.png", title: "Miss Rose Glossy Gloss Lip Comfort" },
-  { img: "card7.png", title: "Miss Rose Cat Eye Mascara Perminent" },
-  { img: "card8.png", title: "Miss Rose Two Way Compact Powder" },
+  { id: "1", img: "card1.png", title: "Miss Rose Silk Flawless Foundation" },
+  { id: "2", img: "card2.png", title: "Miss Rose Full Coverage Concealer" },
+  { id: "3", img: "card3.png", title: "Miss Rose Perfect Cover 24H Hydrating Concealer" },
+  { id: "4", img: "card4.png", title: "Miss Rose Full Coverage Matte Foundation" },
+  { id: "5", img: "card5.png", title: "Miss Rose Silk Radiance BB Cream" },
+  { id: "6", img: "card6.png", title: "Miss Rose Glossy Gloss Lip Comfort" },
+  { id: "7", img: "card7.png", title: "Miss Rose Cat Eye Mascara Permanent" },
+  { id: "8", img: "card8.png", title: "Miss Rose Two Way Compact Powder" },
 ];
 
 const Card = () => {
-
-  useEffect(() => {
-    AOS.init({
-      duration: 800,
-      easing: "ease-out-cubic",
-      once: false,
-    });
-  }, []);
-
   return (
     <div>
       <h1
-        data-aos="fade-down"
-        className="text-black mt-4 text-4xl text-center leading-relaxed font-serif"
+        className="text-black mt-4 text-4xl text-center pt-10 pb-5 leading-relaxed font-serif"
       >
         Enjoy UPTO 70% OFF Sale
       </h1>
 
-      <div className="p-9 flex gap-5 flex-wrap justify-center">
+      <div className="p-9 flex gap-5 flex-wrap font-serif justify-center">
         {products.map((item, index) => (
           <div
             key={index}
-            data-aos="fade-up"
-            data-aos-delay={index * 100}
             className="
               bg-neutral-primary-soft block max-w-2xs 
-              border border-default rounded-2xl shadow-xs
+              border border-gray-300 rounded-2xl shadow-xs
               transition-all duration-300 ease-in-out
               hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02]
             "
@@ -55,16 +41,15 @@ const Card = () => {
               />
             </a>
 
-            <div className="p-3 text-center bg-[#F3F3F3] rounded-2xl">
+            <div className="p-3 text-center rounded-b-2xl">
               <h5 className="mt-3 mb-3 text-lg font-semibold tracking-tight text-heading">
                 {item.title}
               </h5>
 
               <Link
-                href="/Product-Form"
+                href={`/Product-Form?productId=${item.id}`}
                 className="
-                  inline-flex items-center text-white bg-black
-                  hover:bg-gray-800
+                  inline-flex items-center text-white bg-[#C67F90] hover:bg-[#b36a7a]
                   transition-colors duration-300
                   focus:ring-4 focus:ring-brand-medium
                   rounded-md shadow-xs font-medium text-sm
@@ -93,14 +78,12 @@ const Card = () => {
       </div>
 
       <div
-        data-aos="zoom-in"
-        className="flex justify-center mb-6"
+        className="flex font-serif justify-center mb-6"
       >
         <Link
           href="/All"
           className="
-            inline-flex items-center text-white bg-black
-            hover:bg-gray-800
+            inline-flex items-center text-white bg-[#C67F90] hover:bg-[#b36a7a]
             transition-colors duration-300
             focus:ring-4 focus:ring-brand-medium
             shadow-xs font-medium text-sm

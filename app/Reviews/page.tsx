@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation"; // ✅ router import
-import AOS from "aos";
+import { useState } from "react";
+import { useRouter } from "next/navigation"; 
+
 import "aos/dist/aos.css";
 
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
@@ -11,7 +11,7 @@ import { db } from "../lib/firebase";
 import toast from "react-hot-toast";
 
 export default function ReviewForm() {
-  const router = useRouter(); // ✅ router init
+  const router = useRouter(); 
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const [review, setReview] = useState("");
@@ -19,13 +19,7 @@ export default function ReviewForm() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    AOS.init({
-      duration: 800,
-      easing: "ease-out-cubic",
-      once: false,
-    });
-  }, []);
+  
 
   const handleSubmit = async () => {
     if (!db) {
@@ -61,10 +55,10 @@ export default function ReviewForm() {
       setName("");
       setEmail("");
 
-      // ✅ Redirect to home page after success
+     
       setTimeout(() => {
         router.push("/");
-      }, 1500); // 1.5 seconds delay so user sees toast
+      }, 1500); 
 
     } catch (error) {
       console.error("Error adding review:", error);
@@ -79,10 +73,9 @@ export default function ReviewForm() {
   return (
     <div className="bg-[#F9FAFB]">
       <div
-        data-aos="fade-up"
-        className="max-w-2xl mx-auto bg-[#F9FAFB] py-4 px-8 mt-10 mb-10"
+        className="max-w-2xl mx-auto bg-[#F9FAFB] py-25 px-8 "
       >
-        <h1 className="text-center text-2xl font-bold mb-3.5">
+        <h1 className="text-center font-serif text-3xl font-bold mb-3.5">
           Customer Review
         </h1>
 

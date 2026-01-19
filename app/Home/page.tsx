@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function Page() {
   return (
-    <div className="min-h-screen bg-[#C67F90] flex flex-col items-center justify-center px-4">
+    <div className="min-h-screen bg-[#C67F90] flex font-serif flex-col items-center justify-center px-4">
 
       {/* Heading Animation */}
       <motion.h1

@@ -58,8 +58,11 @@ export default function LoginPage() {
     setIsSubmitting(true);
 
     try {
-      await signInWithEmailAndPassword(auth, data.email, data.password);
 
+      const loginUser = await signInWithEmailAndPassword(auth, data.email, data.password);
+
+      console.log("bisma loginUser", loginUser);
+      
       toast.success("Login Successful");
 
       setTimeout(() => {
@@ -102,11 +105,10 @@ export default function LoginPage() {
               <select
                 {...register("role")}
                 className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2
-                ${
-                  errors.role
+                ${errors.role
                     ? "border-red-500 focus:ring-red-200"
                     : "border-gray-300 focus:ring-blue-200"
-                }`}
+                  }`}
               >
                 <option value="customer">Customer</option>
                 <option value="admin">Admin</option>
@@ -125,12 +127,11 @@ export default function LoginPage() {
                 type="email"
                 placeholder="Email"
                 {...register("email")}
-                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 
-                ${
-                  errors.email
+                className={`w-full px-4 py-3 border rounded-lg placeholder-[#CA7E93] focus:outline-none focus:ring-2 
+                ${errors.email
                     ? "border-red-500 focus:ring-red-200"
                     : "border-gray-300 focus:ring-blue-200"
-                }`}
+                  }`}
               />
               {errors.email && (
                 <p className="text-red-500 text-sm mt-1">
@@ -145,12 +146,11 @@ export default function LoginPage() {
                 type="password"
                 placeholder="Password"
                 {...register("password")}
-                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2
-                ${
-                  errors.password
+                className={`w-full px-4 py-3 border rounded-lg placeholder-[#CA7E93] focus:outline-none focus:ring-2
+                ${errors.password
                     ? "border-red-500 focus:ring-red-200"
                     : "border-gray-300 focus:ring-blue-200"
-                }`}
+                  }`}
               />
               {errors.password && (
                 <p className="text-red-500 text-sm mt-1">
@@ -173,7 +173,7 @@ export default function LoginPage() {
               Don&apos;t have an account?{" "}
               <Link
                 href="/Sign-up"
-                className="text-blue-600 hover:underline font-medium"
+                className="text-[#CA7E93] hover:underline font-medium"
               >
                 Sign Up
               </Link>
