@@ -43,8 +43,8 @@ const Card = () => {
     if (!user) {
       router.push("/Login");
     } else {
-      // Change this line only - navigate to Product-Form instead of Product detail
-      router.push(`/Product-Form?productId=${productId}`);
+      // Change this line only - navigate to ProductForm instead of Product detail
+      router.push(`/ProductForm?productId=${productId}`);
     }
   };
 

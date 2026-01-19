@@ -47,7 +47,7 @@ const Card = () => {
               </h5>
 
               <Link
-                href={`/Product-Form?productId=${item.id}`}
+                href={`/ProductForm?productId=${item.id}`}
                 className="
                   inline-flex items-center text-white bg-[#C67F90] hover:bg-[#b36a7a]
                   transition-colors duration-300
