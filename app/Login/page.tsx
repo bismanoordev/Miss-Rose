@@ -101,26 +101,7 @@ export default function LoginPage() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
 
             {/* Role Dropdown */}
-            <div>
-              <select
-                {...register("role")}
-                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2
-                ${errors.role
-                    ? "border-red-500 focus:ring-red-200"
-                    : "border-gray-300 focus:ring-blue-200"
-                  }`}
-              >
-                <option value="customer">Customer</option>
-                <option value="admin">Admin</option>
-              </select>
-
-              {errors.role && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.role.message}
-                </p>
-              )}
-            </div>
-
+            
             {/* Email */}
             <div>
               <input
