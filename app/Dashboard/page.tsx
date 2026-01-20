@@ -21,7 +21,8 @@ import {
     ArrowLeft,
     Store,
     Link as LinkIcon,
-    MoreVertical
+    MoreVertical,
+    LogOut // Add LogOut icon
 } from "lucide-react";
 import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
@@ -146,6 +147,23 @@ export default function Dashboard() {
             avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop"
         },
     ]);
+
+    // Logout handler function
+    const handleLogout = () => {
+        if (window.confirm("Are you sure you want to logout?")) {
+            // Clear any admin authentication data
+            localStorage.removeItem("adminAuth");
+            sessionStorage.removeItem("adminAuth");
+            
+            // Show logout success message
+            toast.success("Logged out successfully!");
+            
+            // Redirect to login page after a short delay
+            setTimeout(() => {
+                window.location.href = "/Login"; // Change this to your actual login route
+            }, 1000);
+        }
+    };
 
     // Load products from Firebase
     const loadProducts = async () => {
@@ -1216,6 +1234,17 @@ export default function Dashboard() {
                     >
                         <ShoppingBag size={20} /> <span>Customer Orders</span>
                     </button>
+                    
+                    {/* Logout Button - Desktop */}
+                    <div className="pt-8 mt-8 border-t border-white/20">
+                        <button
+                            onClick={handleLogout}
+                            className="w-full text-left hover:bg-white/10 cursor-pointer flex items-center gap-3 p-3 rounded-lg transition-colors"
+                        >
+                            <LogOut size={20} />
+                            <span>Logout</span>
+                        </button>
+                    </div>
                 </nav>
             </aside>
 
@@ -1225,15 +1254,26 @@ export default function Dashboard() {
                 <div className="md:hidden mb-6">
                     <div className="flex items-center justify-between mb-4">
                         <h2 className="text-xl font-bold">Mara Admin</h2>
-                        <select
-                            value={activeTab}
-                            onChange={(e) => setActiveTab(e.target.value as any)}
-                            className="p-2 border border-gray-300 rounded-lg bg-white text-sm"
-                        >
-                            <option value="Dashboard">Dashboard</option>
-                            <option value="Products">Products</option>
-                            <option value="Customers">Customer Orders</option>
-                        </select>
+                        <div className="flex items-center gap-2">
+                            <select
+                                value={activeTab}
+                                onChange={(e) => setActiveTab(e.target.value as any)}
+                                className="p-2 border border-gray-300 rounded-lg bg-white text-sm"
+                            >
+                                <option value="Dashboard">Dashboard</option>
+                                <option value="Products">Products</option>
+                                <option value="Customers">Customer Orders</option>
+                            </select>
+                            
+                            {/* Mobile Logout Button */}
+                            <button
+                                onClick={handleLogout}
+                                className="p-2 bg-gradient-to-r from-[#C67F90] to-pink-400 text-white rounded-lg hover:opacity-90 transition flex items-center justify-center"
+                                title="Logout"
+                            >
+                                <LogOut size={18} />
+                            </button>
+                        </div>
                     </div>
                     {activeTab !== "Dashboard" && (
                         <div className="relative">
